@@ -23,70 +23,38 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-   
-    <script src= "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
-    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
     <script type="text/javascript">
-    google.load("feeds", "1"); //APIを読み込みます
 
-    function initialize(){
-        
-        var feed = new google.feeds.Feed("http://nexseed.net/blog/feed/"); //読み込むRSSフィードを設定します
-        var noPhoto = ("/dodo/app/webroot/img/portfolio/cebu_lifestyle.jpg"); //画像がなかった場合に表示する画像を指定します
-        
-        feed.setNumEntries(3); //記事を読み込む件数を設定します
-        feed.load(dispfeed);
-        
-        function dispfeed(result){
+    //Google Feed Api
+    google.load("feeds", "1");
 
-            if(!result.error){
-                var container = document.getElementById("feed"); //HTMLに書き出す対象のIDを指定します
-
-                for (var i = 0; i < result.feed.entries.length; i++) {
-
-                    var entry = result.feed.entries[i];
-
-                    var entryImg = "";
-                    var imgCheck = entry.content.match(/(src="http:)[\S]+((\.jpg)|(\.JPG)|(\.jpeg)|(\.JPEG)|(\.gif)|(\.GIF)|(\.png)|(\.PNG))/); //画像のチェックをします　拡張子はここで増やします
-                    if(imgCheck){
-                        entryImg += '<img ' + imgCheck[0] + '" >';
-                        } else {
-                            entryImg += noPhoto;
-                    }
-
-                    container.innerHTML += '<li>' 
-                    + '<h3>'
-                    + entry.title + '</h3>'
-                    + '<div class="imgbox" id="img' + i + '">' + entryImg + '</div>' 
-                    + '<a href="' + entry.link + '">more...</a>'
-                    + '</li>';
-                    
-                    var element = $('#img' + i + ' img');
-
-                    var img = new Image();
-                    img.src = element.attr('src');
-                    var width = img.width;
-                    var height = img.height;
-                    if(width / height > 200/200){
-                        $('#img' + i + ' img').css('height', 200);
-                        $('#img' + i + ' img').css('width', 300 * width / height);
-                    }else{
-                        $('#img' + i + ' img').css('height', 200 * height / width);
-                        $('#img' + i + ' img').css('width', 300);
-                    }
-
-                }
-
-                var linkBlank = container.getElementsByTagName('a'); // targetに'_blank'を設定します。不要な場合は、以下4行を削除
-                for (var j = 0, l = linkBlank.length; j < l; j++) {
-                    linkBlank[j].target = '_blank';
-                } //target'_blank'ここまで
-            }
-        }
+    function initialize() {
+    var feed = new google.feeds.Feed("http://nexseed.net/blog/feed/");
+    feed.setNumEntries(15);
+    feed.load(function(result) {
+    if (!result.error) {
+    var container = document.getElementById("feed");
+    for (var i = 0; i < result.feed.entries.length; i++) {
+    var entry = result.feed.entries[i];
+    var dd = new Date(entry.publishedDate); // now
+    var yearNum = dd.getYear();
+    if (yearNum < 2000) yearNum += 1900;
+    var m = dd.getMonth() + 1;
+    if (m < 10) {m = "0" + m;}
+    var d = dd.getDate();
+    if (d < 10) {d = "0" + d;}
+    var date = yearNum + "." + m + "." + d + " ";
+    container.innerHTML += "<li><span>" + date +" </span>" +"　<a href='" + entry.link + "' target='_blank'>" + entry.title + "</a></li>";
+    }
+    }
+    });
     }
     google.setOnLoadCallback(initialize);
-    </script>
 
+    </script>
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -95,13 +63,6 @@
       js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.4";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -138,14 +99,10 @@
                         <a class="page-scroll" href="#portfolio">What's "DoDo" ?</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about">"DoDo 新着情報"</a>
+                        <a class="page-scroll" href="#about">"DoDo"の魅力</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#team">"DoDo Member"</a>
-                    </li>
-                    <li>
-                    <button type="button" class="btn btn-warning"><?php echo $this->Html->link('ログアウト',
-                    array('controller' => 'users', 'action' => 'logout')); ?></button>
+                        <a class="page-scroll" href="#team">DoDo Member</a>
                     </li>
                 </ul>
             </div>
@@ -153,14 +110,15 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+
     <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-heading">What's Do you want<br>to Do!?</div>
+                <div class="intro-heading">ENJOY Cebu!!</div>
+                <a href="#services" class="page-scroll btn btn-xl">What's "DoDo"?</a>
             </div>
         </div>
-
     </header>
 
     <!-- Services Section -->
@@ -206,8 +164,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">What's "DoDo"?</h2>
-                    <h3 class="section-subheading text-muted">DoDoは、NEXSEEDに関わってるみなさんにセブをおもいっきり満喫してもらうサービスです</h3>
+                   <h1>DoDoとは？？</h1>
+                   <span class="byline">NexSeedに関わってるみなさまにセブをおもいっきり満喫してもらうサービスです♡</span>
                 </div>
             </div>
             <div class="row">
@@ -252,134 +210,103 @@
                         <h4>Restaurant</h4>
                         <!-- <p class="text-muted">Website Design</p> -->
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- 投稿新着情報表紙 -->
 
-    <div id="main" class="wrapper style1">
-        <section class="container">
-            <div class="col-lg-12 text-center">
+                    <div style="float:left;width:400px;">
+                    <div id="feed"></div>
+                    <h3>-NexSeed Blog-</h3>
+                    </div>
 
-                <div id="about">
-    
-                <?php echo $this->Session->flash(); ?>
-
-                <?php echo $this->fetch('content'); ?>
-                </div>
-            </div>
-        </section>
-    </div>
-    <section id="portfolio" class="bg-light-gray">
-
-    <div id="main" class="wrapper style1">
-        <section class="container">
-            <div class="col-lg-12 text-center">
-                <div style="float:center;">
-                    <a href="http://nexseed.net/">
-                    <img src="/cakephp/app/webroot/images/nexseed.jpg" width="1100px" height="200px"></a>
-                </div>
-            </div>
-        </section>
-    </div>
-    <!-- NexSeed -->
-
-    <div id="main" class="wrapper style1">
-        <section class="container">
-            <div class="col-lg-12 text-center">
-    <div style="float:left;width:500px;height:600;font-size:29px;">
-    <ul class="demo1">
-
-    <ul class="demo1">
-        <div id="feed"></div>
-    </ul>
-
-    <a href="http://nexseed.net/blog/"><h3>-NexSeed Blog-</h3></a>
-    </ul>
-
-    </div>
-    <div style="float:left;width:600px;border-left:1px solid yellow;line-height:1.0em;">
-        <div class="fb-page" data-href="https://www.facebook.com/NexSeed" data-width="550" data-height="1020" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
-        <div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/NexSeed"><a href="https://www.facebook.com/NexSeed">NexSeed</a></blockquote></div>
-        </div>
-        <h3>-NexSeed facebook-</h3>
-        </div>           
-        
-        <!--<div style="float:right;">
-        <div class="fb-share-button" data-href="https://www.facebook.com/pages/DoDo/1703096336580876?fref=ts" data-layout="button_count"></div>
-        <div class="fb-like"></div>
-        </div>
-        </div>-->
-    </section>
-    </div>
-    
-    </div>
-    </section>
-
-    <!-- Main -->
-        
-            <section class="container">
-                
-                <div class="col-lg-12 text-center ">
-                <h1>These are our recommend!!</h1>
-                    <h2><span class="byline">他にもまだまだ知ってほしい情報サイトが盛りだくさん！</span></div>
-                <div class="row">
-                
-                    <!-- Content -->
-                        <div class="6u">
-                            <div class="col-lg-12 text-center">
-                            <section>
-                                <ul class="style">
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-6 portfolio-item">
-                                            <a href="http://ceburyugaku.jp/">
-                                                <div class="portfolio-hover">
-                                                    <div class="portfolio-hover-content">
-                                                    </div>
-                                                </div>
-                                                <img src="/cakephp/app/webroot/images/image2.jpg" class="img-responsive" alt="">
-                                            </a>
-                                            <div class="portfolio-caption">
-                                                <h3>俺のセブ島留学</h3>
-                                                <!-- <p class="text-muted">Graphic Design</p> -->
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-6 portfolio-item">
-                                            <a href="http://www.cebupot.com/">
-                                                <div class="portfolio-hover">
-                                                    <div class="portfolio-hover-content">
-                                                    </div>
-                                                </div>
-                                                <img src="/cakephp/app/webroot/images/cebupot.jpg" class="img-responsive" alt="">
-                                            </a>
-                                            <div class="portfolio-caption">
-                                                <h3>Cebu pot</h3>
-                                                <!-- <p class="text-muted">Website Design</p> -->
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-6 portfolio-item">
-                                            <a href="http://goo.gl/D9ESKF">
-                                                <div class="portfolio-hover">
-                                                    <div class="portfolio-hover-content">
-                                                </div>
-                                                <img src="/cakephp/app/webroot/images/tripadvisor.jpg" class="img-responsive" alt="">
-                                                </a>
-                                                <div class="portfolio-caption">
-                                                <h3>Tripadvisor</h3>
-                                                <!-- <p class="text-muted">Website Design</p> -->
-                                                </div>
-                                                </div>
-                                        </div>
+                    <div style="float:left;width:550px;">
+                        <div class="fb-page" data-href="https://www.facebook.com/NexSeed" data-width="300" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
+                        <div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/NexSeed"><a href="https://www.facebook.com/NexSeed">NexSeed</a></blockquote></div>
+                        </div>
+                        <h3>-NexSeed facebook-</h3>
+                        </div>           
+                        
+                        <div style="float:right;">
+                        <div class="fb-share-button" data-href="https://www.facebook.com/NexSeed" data-layout="button_count"></div>
+                        <div class="fb-like"></div>
                         </div>
                     </div>
-                    </div>
                 </div>
-                 </div>
-            </section>
-    
+                </div>
+
+                <div id="main" class="wrapper style1">
+                    <section class="container">
+                        <header class="major">
+                            <h2>These are our recommend!!</h2>
+                            <span class="byline">他にもまだまだ知ってほしい情報サイトが盛りだくさん！</span>
+                        </header>
+                        <div class="row">
+                        
+                            <!-- Content -->
+                                <div class="6u">
+                                    <section>
+                                        <ul class="style">
+                                            <li>
+                                                <div style="float:left;">
+                                                <a href="http://nexseed.net/">
+                                                <img src="/cakephp/app/webroot/images/image1.jpg" border="0" alt="NexSeed" width="90" height="90" align="top"></a>
+                                                <h3>-NexSeed-</h3></div>
+                                                <div style="float:left;width:300px;margin-left:10px;">
+                                                私たちが通っているNexSeedのホームページには意外とみんなが知らないGoodな情報が‼︎<br>
+                                                さらに<a href="http://nexseed.net/blog/">NexSeed Blog</a>には最新情報がたっぷり♡</div></span>
+                                            </li>
+                                            <li>
+                                                <div style="float:left;">
+                                                <a href="http://ceburyugaku.jp/">
+                                                <img src="/cakephp/app/webroot/images/image2.jpg" border="0" alt="NexSeed" width="90" height="90" align="top"></a>
+                                                <h3>-俺セブ-</h3></div>
+                                                <div style="float:left;width:300px;margin-left:10px;">
+                                                <span>４ヶ月の留学経験から得た、<br>
+                                                成功するセブ留学の秘訣をお伝えします！</span>
+                                            </li>
+                                        </ul>
+                                    </section>
+                                </div>
+                                <div class="6u">
+                                    <section>
+                                        <ul class="style">
+                                            <li>
+                                                <div style="float:left;">
+                                                <a href="http://www.cebupot.com/">
+                                                <img src="/cakephp/app/webroot/images/cebupot.jpg" border="0" alt="NexSeed" width="90" height="90" align="top"></a>
+                                                <h3>-セブポット-</h3></div>
+                                                <div style="float:left;width:300px;margin-left:10px;">
+                                                <span>セブ島総合情報サイト！<br>
+                                                    役立つ情報が盛りだくさん‼︎<br>
+                                                    これなしではセブを知れない⁉︎</span>
+                                            </li>
+                                            <li>
+                                                <div style="float:left;">
+                                                <a href="http://goo.gl/D9ESKF">
+                                                <img src="/cakephp/app/webroot/images/tripadvisor.jpg" border="0" alt="NexSeed" width="90" height="90" align="top"></a>
+                                                <h3>-Tripadvisor-</h3></div>
+                                                <div style="float:left;width:300px;margin-left:10px;">
+                                                <span>口コミを参考にして、<br>
+                                                    あなたにぴったりな旅を予約しましょう!</span>
+                                            </li>
+                                        </ul>
+                                    </section>
+                                </div>
+
+                        </div>
+                    </section>
+                </div>
+
+                        <img src="img/portfolio/dreams.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Dreams</h4>
+                        <p class="text-muted">Website Design</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
     <section id="team" class="bg-light-gray">
         <div class="container">
             <div class="row">
@@ -397,7 +324,7 @@
                         <ul class="list-inline social-buttons">
                             <!-- <li><a href="#"><i class="fa fa-twitter"></i></a> -->
                             </li>
-                            <li><a href="https://www.facebook.com/yukiko.ohara.94?fref=ts"><i class="fa fa-facebook"></i></a>
+                            <li><a href="https://www.facebook.com/yukiko.ohara.94?ref=ts&fref=ts"><i class="fa fa-facebook"></i></a>
                             </li>
                            <!--  <li><a href="#"><i class="fa fa-linkedin"></i></a>
                             </li> -->
@@ -526,7 +453,7 @@
                     <ul class="list-inline social-buttons">
                         <!-- <li><a href="#"><i class="fa fa-twitter"></i></a> -->
                         <!-- </li> -->
-                        <li><a href="https://www.facebook.com/pages/DoDo/1703096336580876?fref=ts"><i class="fa fa-facebook"></i></a>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a>
                         </li>
                         <!-- <li><a href="#"><i class="fa fa-linkedin"></i></a> -->
                         <!-- </li> -->
@@ -543,7 +470,6 @@
             </div>
         </div>
     </footer>
-
     <!-- jQuery -->
     <script src="/dodo/app/webroot/js/jquery.js"></script>
 
@@ -565,4 +491,3 @@
 </body>
 
 </html>
-
