@@ -9,10 +9,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!--スライド-->
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+            <meta name="description" content="Slicebox - 3D Image Slider with Fallback" />
+            <meta name="keywords" content="jquery, css3, 3d, webkit, fallback, slider, css3, 3d transforms, slices, rotate, box, automatic" />
+            <meta name="author" content="Pedro Botelho for Codrops" />
+
     <title>DoDo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/dodo/app/webroot/css/bootstrap.min.css" rel="stylesheet">
+
 
     <!-- Custom CSS -->
     <link href="/dodo/app/webroot/css/agency.css" rel="stylesheet">
@@ -23,6 +31,13 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!--スライド-->
+        <link rel="shortcut icon" href="../favicon.ico"> 
+        <link rel="stylesheet" type="text/css" href="/cakephp/css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="/cakephp/css/slicebox.css" />
+        <link rel="stylesheet" type="text/css" href="/cakephp/css/custom.css" />
+        <script type="text/javascript" src="/cakephp/js/modernizr.custom.46884.js"></script>
    
     <script src= "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
@@ -67,7 +82,7 @@
                     img.src = element.attr('src');
                     var width = img.width;
                     var height = img.height;
-                    if(width / height > 200/200){
+                    if(width / height > 300/200){
                         $('#img' + i + ' img').css('height', 200);
                         $('#img' + i + ' img').css('width', 300 * width / height);
                     }else{
@@ -259,7 +274,7 @@
 
     <!-- 投稿新着情報表紙 -->
 
-    <div id="main" class="wrapper style1">
+    <div id="main">
         <section class="container">
             <div class="col-lg-12 text-center">
 
@@ -271,10 +286,88 @@
                 </div>
             </div>
         </section>
-    </div>
+
+        <!--スライド-->
+
+
+           <div class="container">
+
+               <h1> <span>No DoDo No Life...</span></h1>
+               
+               <div class="more">
+                   <ul id="sb-examples">
+                       <li><a href="index5.html">Life Style</a></li>
+                       <li><a href="index2.html">Activity</a></li>
+                       <li><a href="index3.html">Restrant</a></li>
+                       <li><a href="index3.html">Write more</a></li>
+                   </ul>
+               </div>
+
+               <div class="wrapper">
+
+                   <ul id="sb-slider" class="sb-slider">
+                       <li>
+                           <a href="#" target="_blank"><img src="/cakephp/images/1.jpg" alt="image1"/></a>
+                           <div class="sb-description">
+                               <h3>Nalusuan</h3>
+                           </div>
+                       </li>
+                       <li>
+                           <a href="#" target="_blank"><img src="/cakephp/images/2.jpg" alt="image2"/></a>
+                           <div class="sb-description">
+                               <h3>Pizza</h3>
+                           </div>
+                       </li>
+                       <li>
+                           <a href="#" target="_blank"><img src="/cakephp/images/3.jpg" alt="image1"/></a>
+                           <div class="sb-description">
+                               <h3>Camotesu</h3>
+                           </div>
+                       </li>
+                       <li>
+                           <a href="#" target="_blank"><img src="/cakephp/images/4.jpg" alt="image1"/></a>
+                           <div class="sb-description">
+                               <h3>Shoping</h3>
+                           </div>
+                       </li>
+                       <li>
+                           <a href="#" target="_blank"><img src="/cakephp/images/5.jpg" alt="image1"/></a>
+                           <div class="sb-description">
+                               <h3>Hair shop</h3>
+                           </div>
+                       </li>
+                       <li>
+                           <a href="#" target="_blank"><img src="/cakephp/images/6.jpg" alt="image1"/></a>
+                           <div class="sb-description">
+                               <h3>IT Park</h3>
+                           </div>
+                       </li>
+                       <li>
+                           <a href="#" target="_blank"><img src="/cakephp/images/7.jpg" alt="image1"/></a>
+                           <div class="sb-description">
+                               <h3>Jolibie</h3>
+                           </div>
+                       </li>
+                   </ul>
+
+                   <div id="shadow" class="shadow"></div>
+
+                   <div id="nav-arrows" class="nav-arrows">
+                       <a href="#">Next</a>
+                       <a href="#">Previous</a>
+                   </div>
+
+               </div><!-- /wrapper -->
+
+           </div><!--slide-->
+ 
+   
+
+    </div><!--main-->
+  
     <section id="portfolio" class="bg-light-gray">
 
-    <div id="main" class="wrapper style1">
+    <div id="main">
         <section class="container">
             <div class="col-lg-12 text-center">
                 <div style="float:center;">
@@ -286,7 +379,7 @@
     </div>
     <!-- NexSeed -->
 
-    <div id="main" class="wrapper style1">
+    <div id="main">
         <section class="container">
             <div class="col-lg-12 text-center">
     <div style="float:left;width:500px;height:600;font-size:29px;">
@@ -561,6 +654,62 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/dodo/app/webroot/js/agency.js"></script>
+
+    <!--ースライド-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/cakephp/js/jquery.slicebox.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            
+            var Page = (function() {
+
+                var $navArrows = $( '#nav-arrows' ).hide(),
+                    $shadow = $( '#shadow' ).hide(),
+                    slicebox = $( '#sb-slider' ).slicebox( {
+                        onReady : function() {
+
+                            $navArrows.show();
+                            $shadow.show();
+
+                        },
+                        orientation : 'r',
+                        cuboidsRandom : true,
+                        disperseFactor : 30
+                    } ),
+                    
+                    init = function() {
+
+                        initEvents();
+                        
+                    },
+                    initEvents = function() {
+
+                        // add navigation events
+                        $navArrows.children( ':first' ).on( 'click', function() {
+
+                            slicebox.next();
+                            return false;
+
+                        } );
+
+                        $navArrows.children( ':last' ).on( 'click', function() {
+                            
+                            slicebox.previous();
+                            return false;
+
+                        } );
+
+                    };
+
+                    return { init : init };
+
+            })();
+
+            Page.init();
+
+        });
+    </script>
+
 
 </body>
 

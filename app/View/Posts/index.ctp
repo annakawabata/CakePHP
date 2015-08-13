@@ -5,7 +5,7 @@
     '♡Please your information♡',
     array('action' => 'add')
 ); ?>
-<table>
+
     <!-- ここから、$posts配列をループして、投稿記事の情報を表示 -->
     <table class="table table-striped">
     <?php foreach ($posts_life as $post): ?>
@@ -59,6 +59,5 @@
         
     <?php endforeach; ?>
     <?php unset($post); ?>
-    </table>
     </table>
     </div>
